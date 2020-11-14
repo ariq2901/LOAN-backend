@@ -46,7 +46,9 @@ class UserController extends Controller
         }
         
         event(new Registered($user));
+        $data['message'] = "Please verify your email that we've sent to your mailbox";
         $data['name'] = $user->name;
+        $data['role'] = $user->getRoleNames();
         $data['token'] = $user->createToken('nApp')->accessToken;
         return response()->json(['data' => $data], $this->successCode);
     }
