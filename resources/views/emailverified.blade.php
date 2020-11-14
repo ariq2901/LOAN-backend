@@ -58,7 +58,7 @@
 <body>
   <div class="info">
     <div class="img-wrapper">
-      <img src={{ asset('/verifiedSVG.svg') }} alt="verified img">
+      <img src="https://i.ibb.co/D8kmN0L/verified-Email.png" alt="verified-Email">
     </div>
     <span>Your Email has been Verified</span>
     <p>back to the app and login with your account!</p>
