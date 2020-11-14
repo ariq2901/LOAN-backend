@@ -19,7 +19,7 @@ Route::get('/kembali', function() {
     return "not permitted";
 })->name('kembali');
 Route::get('email/verify/{id}', 'App\Http\Controllers\VerificationApiController@verify')->name('verificationapi.verify');
-Route::get('email/resend', 'App\Http\Controllers\VerificationApiController@resend')->name('verificationapi.resend')
+Route::get('email/resend', 'App\Http\Controllers\VerificationApiController@resend')->name('verificationapi.resend');
 
 Route::post('/login', $url . '\UserController@login')->name('login');
 Route::post('/register', $url . '\UserController@register');
