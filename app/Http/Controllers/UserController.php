@@ -38,11 +38,11 @@ class UserController extends Controller
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
 
-        if($input['role'] == 'guru') {
-            $user->assignRole('guru');
+        if($input['role'] == 'teacher' || $input['role'] == 'guru') {
+            $user->assignRole('teacher');
         }
-        if($input['role'] == 'murid') {
-            $user->assignRole('murid');
+        if($input['role'] == 'student' || $input['role'] == 'murid') {
+            $user->assignRole('student');
         }
         
         event(new Registered($user));
@@ -64,10 +64,7 @@ class UserController extends Controller
     
     public function detailUser() {
         $user = Auth::user();
-        if($user->hasRole('guru')) {
-            return response()->json('ini guru', $this->successCode);
-        }
-
-        return response()->json('ini murid', $this->successCode);
+        $user['role'] = $user->getRoleNames();
+        return response()->json(['data' => $user], $this->successCode);
     }
 }
