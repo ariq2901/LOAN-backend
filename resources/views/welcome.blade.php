@@ -174,7 +174,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 52 52"><circle id="postl" cx="26" cy="26" r="26" fill="#9326FF"/></svg>
                                 <div class="flex" style="width: 100%; justify-content: space-between">
                                     <div class="ml-4 text-lg leading-2 font-semibold"><span class="text-gray-900 dark:text-white">Laporan Peminjaman</span></div>
-                                    <div class="ml-4 text-lg leading-2 font-semibold"><span class="text-gray-900 dark:text-white">Role :</span> <span style="color: #f0259f">Guru</span></div>
+                                    <div class="ml-4 text-lg leading-2 font-semibold"><span class="text-gray-900 dark:text-white">Role :</span> <span style="color: #f0259f">Teacher</span></div>
                                 </div>
                             </div>
                             <div class="ml-12">
