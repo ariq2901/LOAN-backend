@@ -19,20 +19,20 @@ Route::get('/kembali', function() {
     return "not permitted";
 })->name('kembali');
 Route::get('email/verify/{id}', 'App\Http\Controllers\VerificationApiController@verify')->name('verificationapi.verify');
-Route::get('email/resend', 'App\Http\Controllers\VerificationApiController@resend')->name('verificationapi.resend');
+Route::post('email/resend', 'App\Http\Controllers\VerificationApiController@resend')->name('verificationapi.resend');
 
 Route::post('/login', $url . '\UserController@login')->name('login');
 Route::post('/register', $url . '\UserController@register');
 
 // ^ All Role
-Route::group(['middleware' => 'auth:api'], function() {
+Route::group(['middleware' => 'auth:api', 'verified'], function() {
     Route::get('/user/detail', 'App\Http\Controllers\UserController@detailUser');
     Route::get('/logout', 'App\Http\Controllers\UserController@logout');
 });
 
 //^ Guru Role
-Route::group(['middleware' => ['auth:api', 'role:guru']], function() {
-    Route::get('/laporan', 'App\Http\Controllers\GuruController@laporan')->middleware(['role:guru']);
+Route::group(['middleware' => ['auth:api', 'role:guru', 'verified']], function() {
+    Route::get('/laporan', 'App\Http\Controllers\GuruController@laporan');
 });
 
 //^ Murid Role
