@@ -58,7 +58,7 @@
 <body>
   <div class="info">
     <div class="img-wrapper">
-      <img src={{ assets('verifiedSVG.svg') }} alt="verified img">
+      <img src={{ asset('/verifiedSVG.svg') }} alt="verified img">
     </div>
     <span>Your Email has been Verified</span>
     <p>back to the app and login with your account!</p>
