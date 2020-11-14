@@ -52,7 +52,7 @@
                                 <div class="mt-2 text-gray-600 dark:text-gray-400">
                                     <span class="font-semibold">Body</span>
                                     <ul style="margin: 0">
-                                        <li><span class=" font-semibold" style="color: rgb(255, 23, 104)">JSON:</span> { "name" : string, "email": string, "password": string, "c_password": string, "role": string }  *untuk role ada 2 pilihan, "guru" & "murid"</li>
+                                        <li><span class=" font-semibold" style="color: rgb(255, 23, 104)">JSON:</span> { "name" : string, "email": string, "password": string, "c_password": string, "role": string }  *untuk role ada 2 pilihan, "teacher" & "student"</li>
                                     </ul>
                                 </div>
                             </div>
