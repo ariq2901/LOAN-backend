@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\VerifiesEmails;
+use Illuminate\Support\Facades\Auth;
 
 class VerificationApiController extends Controller
 {
@@ -27,10 +28,14 @@ class VerificationApiController extends Controller
     }
     public function resend(Request $request)
     {
-        if($request->user()->hasVerifiedEmail()) {
-            return response()->json("User already have verified email!", 422);
+        $userEmail = $request['email'];
+        $user = User::where("email", $userEmail)->first();
+        if(!$user) {
+            return response()->json("There is no user with that email in our data", 401);
+        } elseif ($user['email_verified_at'] != null) {
+            return response()->json("The user email has been verified", 401);
         }
-        $request->user()->sendEmailVerificationNotification();
-        return response()->json("The notification has been sent to your mailbox!");
+        $user->sendEmailVerificationNotification();
+        return response()->json("The notification has been sent to your mailbox!", 200);
     }
 }
