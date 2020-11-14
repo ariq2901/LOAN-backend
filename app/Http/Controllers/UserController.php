@@ -46,7 +46,7 @@ class UserController extends Controller
         
         $data['name'] = $user->name;
         $data['token'] = $user->createToken('nApp')->accessToken;
-        return response()->json(['data', $data], $this->successCode);
+        return response()->json(['data' => $data], $this->successCode);
     }
 
     public function logout(Request $request) {
