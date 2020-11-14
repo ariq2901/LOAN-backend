@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -44,6 +45,7 @@ class UserController extends Controller
             $user->assignRole('murid');
         }
         
+        event(new Registered($user));
         $data['name'] = $user->name;
         $data['token'] = $user->createToken('nApp')->accessToken;
         return response()->json(['data' => $data], $this->successCode);
