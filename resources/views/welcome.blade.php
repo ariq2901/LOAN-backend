@@ -18,12 +18,30 @@
             body {
                 font-family: 'Nunito';
             }
+            div.w-100 {
+                width: 100%;
+            }
+            div.biru {
+                border-left: 4px solid #26D3FF;
+            }
+            div.salmon {
+                border-left: 4px solid #f65c78;
+            }
+            div.green {
+                border-left: 4px solid #42e6a4;
+            }
+            div.violet {
+                border-left: 4px solid #9326FF;
+            }
+            .salmon {
+                color: #f65c78;
+            }
         </style>
     </head>
     <body class="antialiased">
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900" style="padding-top: 40px">
 
-            <div class="mx-auto sm:px-6 lg:px-8">
+            <div class="mx-auto sm:px-6 lg:px-8 w-100">
                 <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
                     <svg viewBox="0 0 651 192" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-16 w-auto text-gray-700 sm:h-20">
                         <g clip-path="url(#clip0)" fill="#EF3B2D">
@@ -33,7 +51,7 @@
                 </div>
 
                 <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
-                    <div>
+                    <div class="biru">
                         <div class="p-6">
                             <div class="flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 52 52"><circle id="postl" cx="26" cy="26" r="26" fill="#26D3FF"/></svg>
@@ -52,7 +70,9 @@
                                 <div class="mt-2 text-gray-600 dark:text-gray-400">
                                     <span class="font-semibold">Body</span>
                                     <ul style="margin: 0">
-                                        <li><span class=" font-semibold" style="color: rgb(255, 23, 104)">JSON:</span> { "name" : string, "email": string, "password": string, "c_password": string, "role": string }  *untuk role ada 2 pilihan, "teacher" & "student"</li>
+                                        <li><span class=" font-semibold" style="color: rgb(255, 23, 104)">JSON:</span> { "name" : string, "email": string, "password": string, "c_password": string, "role": string, "parent_email": string }</li><hr>
+                                        <span style="margin-top: 10px"><span class="salmon">*</span> untuk role ada 3 pilihan, "teacher" , "musyrif" & "student"</span><br>
+                                        <span><span class="salmon">*</span> kolom <span class="text-gray-900 font-semibold dark:text-white">"parent_email"</span> hanya untuk Role <span class="text-gray-900 font-semibold dark:text-white">"student"</span></span>
                                     </ul>
                                 </div>
                             </div>
@@ -60,7 +80,7 @@
                     </div>
                 </div>
                 <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
-                    <div>
+                    <div class="biru">
                         <div class="p-6">
                             <div class="flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 52 52"><circle id="postl" cx="26" cy="26" r="26" fill="#26D3FF"/></svg>
@@ -87,7 +107,7 @@
                     </div>
                 </div>
                 <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
-                    <div>
+                    <div class="biru">
                         <div class="p-6">
                             <div class="flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 52 52"><circle id="postl" cx="26" cy="26" r="26" fill="#26D3FF"/></svg>
@@ -114,7 +134,7 @@
                     </div>
                 </div>
                 <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
-                    <div>
+                    <div class="salmon">
                         <div class="p-6">
                             <div class="flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 52 52"><circle id="postl" cx="26" cy="26" r="26" fill="#f65c78"/></svg>
@@ -141,7 +161,7 @@
                     </div>
                 </div>
                 <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
-                    <div>
+                    <div class="green">
                         <div class="p-6">
                             <div class="flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 52 52"><circle id="postl" cx="26" cy="26" r="26" fill="#42e6a4"/></svg>
@@ -155,7 +175,7 @@
                                     GET
                                 </div>
                                 <div class="mt-2 text-gray-600 dark:text-gray-400">
-                                    /api/ser/detail
+                                    /api/user/detail
                                 </div>
                                 <div class="mt-2 text-gray-600 dark:text-gray-400">
                                     <span class="font-semibold">Headers</span>
@@ -168,13 +188,13 @@
                     </div>
                 </div>
                 <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
-                    <div>
+                    <div class="violet">
                         <div class="p-6">
                             <div class="flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 52 52"><circle id="postl" cx="26" cy="26" r="26" fill="#9326FF"/></svg>
                                 <div class="flex" style="width: 100%; justify-content: space-between">
                                     <div class="ml-4 text-lg leading-2 font-semibold"><span class="text-gray-900 dark:text-white">Laporan Peminjaman</span></div>
-                                    <div class="ml-4 text-lg leading-2 font-semibold"><span class="text-gray-900 dark:text-white">Role :</span> <span style="color: #f0259f">Teacher</span></div>
+                                    <div class="ml-4 text-lg leading-2 font-semibold"><span class="text-gray-900 dark:text-white">Role :</span> <span style="color: #f0259f">Teacher ,</span> <span style="color: #f05454">Musyrif</span></div>
                                 </div>
                             </div>
                             <div class="ml-12">

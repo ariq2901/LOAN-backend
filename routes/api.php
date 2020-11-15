@@ -36,3 +36,8 @@ Route::group(['middleware' => ['auth:api', 'role:teacher', 'verified']], functio
 });
 
 //^ Student's Role
+
+
+
+
+Route::post('/checkemail', 'App\Http\Controllers\UserController@checkEmail');
