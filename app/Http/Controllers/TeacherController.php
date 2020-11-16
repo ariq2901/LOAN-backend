@@ -9,7 +9,7 @@ class TeacherController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['role:teacher']);
+        $this->middleware(['role:teacher', 'role:musyrif']);
     }
     
     public function hello() {

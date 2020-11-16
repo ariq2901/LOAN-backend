@@ -25,6 +25,11 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'parent_email'
     ];
+    
+    public function borrowings()
+    {
+        return $this->hasMany(Borrowing::class, 'user_id');
+    }
 
     public function sendEmailVerificationNotification()
     {
@@ -49,4 +54,5 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
 }

@@ -33,6 +33,9 @@
             div.violet {
                 border-left: 4px solid #9326FF;
             }
+            div.sea {
+                border-left: 4px solid #0278ae;
+            }
             .salmon {
                 color: #f65c78;
             }
@@ -134,10 +137,10 @@
                     </div>
                 </div>
                 <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
-                    <div class="salmon">
+                    <div class="green">
                         <div class="p-6">
                             <div class="flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 52 52"><circle id="postl" cx="26" cy="26" r="26" fill="#f65c78"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 52 52"><circle id="postl" cx="26" cy="26" r="26" fill="#42e6a4"/></svg>
                                 <div class="flex" style="width: 100%; justify-content: space-between">
                                     <div class="ml-4 text-lg leading-2 font-semibold"><span class="text-gray-900 dark:text-white">Logout User</span></div>
                                     <div class="ml-4 text-lg leading-2 font-semibold"><span class="text-gray-900 dark:text-white">Role :</span> <span style="color: rgb(13, 208, 149)">All Role</span></div>
@@ -166,6 +169,27 @@
                             <div class="flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 52 52"><circle id="postl" cx="26" cy="26" r="26" fill="#42e6a4"/></svg>
                                 <div class="flex" style="width: 100%; justify-content: space-between">
+                                    <div class="ml-4 text-lg leading-2 font-semibold"><span class="text-gray-900 dark:text-white">List Users by Role</span></div>
+                                    <div class="ml-4 text-lg leading-2 font-semibold"><span class="text-gray-900 dark:text-white">Role :</span> <span class="text-gray-600">Guest ,</span> <span style="color: rgb(13, 208, 149)">All Role</span></div>
+                                </div>
+                            </div>
+                            <div class="ml-12">
+                                <div class="mt-1 text-gray-600 dark:text-gray-400 font-semibold text-md">
+                                    GET
+                                </div>
+                                <div class="mt-2 text-gray-600 dark:text-gray-400">
+                                    /api/users/{role}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
+                    <div class="green">
+                        <div class="p-6">
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 52 52"><circle id="postl" cx="26" cy="26" r="26" fill="#42e6a4"/></svg>
+                                <div class="flex" style="width: 100%; justify-content: space-between">
                                     <div class="ml-4 text-lg leading-2 font-semibold"><span class="text-gray-900 dark:text-white">User Detail</span></div>
                                     <div class="ml-4 text-lg leading-2 font-semibold"><span class="text-gray-900 dark:text-white">Role :</span> <span style="color: rgb(13, 208, 149)">All Role</span></div>
                                 </div>
@@ -176,6 +200,68 @@
                                 </div>
                                 <div class="mt-2 text-gray-600 dark:text-gray-400">
                                     /api/user/detail
+                                </div>
+                                <div class="mt-2 text-gray-600 dark:text-gray-400">
+                                    <span class="font-semibold">Headers</span>
+                                    <ul style="margin: 0">
+                                        <li><span class="font-semibold" style="color: rgb(255, 23, 104)">JSON:</span> { 'Authorization' : "Bearer {token}" }</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
+                    <div class="sea">
+                        <div class="p-6">
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 52 52"><circle id="postl" cx="26" cy="26" r="26" fill="#0278ae"/></svg>
+                                <div class="flex" style="width: 100%; justify-content: space-between">
+                                    <div class="ml-4 text-lg leading-2 font-semibold"><span class="text-gray-900 dark:text-white">Request Peminjaman</span></div>
+                                    <div class="ml-4 text-lg leading-2 font-semibold"><span class="text-gray-900 dark:text-white">Role :</span> <span style="color: #0278ae">Student</span></div>
+                                </div>
+                            </div>
+                            <div class="ml-12">
+                                <div class="mt-1 text-gray-600 dark:text-gray-400 font-semibold text-md">
+                                    POST
+                                </div>
+                                <div class="mt-2 text-gray-600 dark:text-gray-400">
+                                    /api/request-borrow
+                                </div>
+                                <div class="mt-2 text-gray-600 dark:text-gray-400">
+                                    <span class="font-semibold">Headers</span>
+                                    <ul style="margin: 0">
+                                        <li><span class="font-semibold" style="color: rgb(255, 23, 104)">JSON:</span> { 'Authorization' : "Bearer {token}" }</li>
+                                    </ul>
+                                </div>
+                                <div class="mt-2 text-gray-600 dark:text-gray-400">
+                                    <span class="font-semibold">Body</span>
+                                    <ul style="margin: 0">
+                                        <li><span class=" font-semibold" style="color: rgb(255, 23, 104)">JSON:</span> { "necessity" : string, "teacher_in_charge": string, "borrow_date": string, "reason": string }</li><hr>
+                                        <span style="margin-top: 10px"><span class="salmon">*</span> untuk kolom <span class="text-gray-900 font-semibold dark:text-white"> "reason"</span> nullable, jika <span class="text-gray-900 font-semibold dark:text-white">"borrow_date" == "request_borrow"</span> (request_borrow ada di laravel) maka reason required, jika tidak sama maka kosongkan </span><br>
+                                        <span style="margin-top: 10px"><span class="salmon">*</span> format <span class="text-gray-900 font-semibold dark:text-white"> "borrow_date"</span> YYYY-MM-DD</span><br>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
+                    <div class="sea">
+                        <div class="p-6">
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 52 52"><circle id="postl" cx="26" cy="26" r="26" fill="#0278ae"/></svg>
+                                <div class="flex" style="width: 100%; justify-content: space-between">
+                                    <div class="ml-4 text-lg leading-2 font-semibold"><span class="text-gray-900 dark:text-white">History Peminjaman si User</span></div>
+                                    <div class="ml-4 text-lg leading-2 font-semibold"><span class="text-gray-900 dark:text-white">Role :</span> <span style="color: #0278ae">Student</span></div>
+                                </div>
+                            </div>
+                            <div class="ml-12">
+                                <div class="mt-1 text-gray-600 dark:text-gray-400 font-semibold text-md">
+                                    GET
+                                </div>
+                                <div class="mt-2 text-gray-600 dark:text-gray-400">
+                                    /api/history-borrow
                                 </div>
                                 <div class="mt-2 text-gray-600 dark:text-gray-400">
                                     <span class="font-semibold">Headers</span>

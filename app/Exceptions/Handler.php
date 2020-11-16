@@ -41,6 +41,10 @@ class Handler extends ExceptionHandler
         if ($exception instanceof \Spatie\Permission\Exceptions\UnauthorizedException) {
             return response()->json(['error' => 'You do not have the required authorization.'], 403);
         }
+
+        if ($exception instanceof \Spatie\Permission\Exceptions\RoleDoesNotExist) {
+            return response()->json(['error' => 'There is no role named `asd`.'], 404);
+        }
     
         return parent::render($request, $exception);
     }

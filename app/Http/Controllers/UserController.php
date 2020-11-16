@@ -7,6 +7,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Role;
 use SMTPValidateEmail\Validator as SmtpEmailValidator;
 
 class UserController extends Controller
@@ -104,5 +105,14 @@ class UserController extends Controller
             return false;
         }
         return true;
+    }
+
+    public function getUsersByRole($role) {
+        $roles = Role::where('name', $role)->get();
+        $users = User::role($role)->get();
+        if(!$roles) {
+            return response()->json(["error" => "There is no role with name " . $role], 404);
+        }
+        return response()->json(["user" => $users], 200);
     }
 }

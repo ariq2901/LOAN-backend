@@ -24,6 +24,8 @@ Route::post('email/resend', 'App\Http\Controllers\VerificationApiController@rese
 Route::post('/login', $url . '\UserController@login')->middleware('cekverified')->name('login');
 Route::post('/register', $url . '\UserController@register')->name('register');
 
+Route::get('/users/{role}', $url . '\UserController@getUsersByRole');
+
 // ^ All Role
 Route::group(['middleware' => 'auth:api', 'verified'], function() {
     Route::get('/user/detail', 'App\Http\Controllers\UserController@detailUser');
@@ -31,13 +33,13 @@ Route::group(['middleware' => 'auth:api', 'verified'], function() {
 });
 
 //^ Teacher's Role
-Route::group(['middleware' => ['auth:api', 'role:teacher', 'verified']], function() {
+Route::group(['middleware' => ['auth:api', 'role:teacher', 'cekverified']], function() {
     Route::get('/laporan', 'App\Http\Controllers\TeacherController@laporan');
 });
 
 //^ Student's Role
-
-
-
-
-Route::post('/checkemail', 'App\Http\Controllers\UserController@checkEmail');
+Route::group(['middleware' => ['auth:api', 'role:student']], function() {
+    Route::post('/request-borrow', 'App\Http\Controllers\StudentController@requestBorrowing');
+    Route::get('/history-borrow', 'App\Http\Controllers\StudentController@historyBorrowing');
+    Route::get('/get-date', 'App\Http\Controllers\StudentController@getDate');
+});
