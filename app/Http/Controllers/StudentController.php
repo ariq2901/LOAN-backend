@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\PeminjamanEmail;
 use App\Models\Borrowing;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class StudentController extends Controller
@@ -38,6 +40,8 @@ class StudentController extends Controller
         $getuser = Auth::user();
         $userId = $getuser['id'];
         $input = $request->all();
+        $namaguru = $input["teacher_in_charge"];
+        $guru = User::where('name', $namaguru)->get("email");
 
         //^ mengecek selisih tgl peminjaman & tgl request untuk mengetahui tipe URGENT/tidak
         $input['borrow_date'] = date_create($input['borrow_date']);
@@ -58,7 +62,10 @@ class StudentController extends Controller
             }
             $input['urgent'] = false;
             $input['user_id'] = $userId;
-            if(Borrowing::create($input)) {
+            $borrowing = Borrowing::create($input);
+            $borrowingId = $borrowing->id;
+            if($borrowing) {
+                $this->notifpinjam($guru, $borrowingId);
                 return response()->json(['message' => "Succesfully sending Borrowing request", "data" => $input], 200);
             }
         }
@@ -75,11 +82,13 @@ class StudentController extends Controller
             $input['urgent'] = true;
             $input['reason'] = $request->reason;
             $input['user_id'] = $userId;
-            if(Borrowing::create($input)) {
+            $borrowing = Borrowing::create($input);
+            $borrowingId = $borrowing->id;
+            if($borrowing) {
+                $this->notifpinjam("ariq2901@gmail.com", $borrowingId);
                 return response()->json(['message' => "Succesfully sending Borrowing request", "data" => $input], 200);
             }
         }
-
 
         return response()->json(["error" => "There is an error occured!"], 400);
     }
@@ -93,38 +102,23 @@ class StudentController extends Controller
         ]);
     }
 
-    public function getDate()
-    {
-        $user = Auth::user();
-        $created_at = $user['created_at'];
-        $created_at = date_format($created_at, "Y/m/d H:i:s");
-        $nowTime = date('Y/m/d H:i:s');
-        //^ inisialisasi waktu
-        $create = $user['created_at'];
-        $custom = date_create('2020-11-14');
-        $ini = now()->timezone('Asia/Jakarta');
-        //^ ubah ke format int date
-        $pembuatan = strtotime($created_at);
-        $waktuIni = strtotime($nowTime);
-        //^ selisih waktu /jam
-        $interval = date_diff($create, $ini);
-    
-        return response()->json(["now time" => $waktuIni, "user created_at" => $pembuatan, "selisih waktu" => $interval], 200);
-    }
-
     public function selisih($tujuan, $wakturequest) {
         $h_tujuan = date_format($tujuan, "Y-m-d");
         $h_wakturequest = date_format($wakturequest, "Y-m-d");
-        $hari = [$h_tujuan, $h_wakturequest];
         $interval = date_diff($wakturequest, $tujuan);
         $day = $interval->days;
-        $guru = "masuk ke guru";
-        $ustad = "masuk ke ustad";
         if($h_wakturequest < $h_tujuan) {
             return true;
         }
         if($h_wakturequest == $h_tujuan) {
             return false;
         }
+    }
+
+    public function notifpinjam($penerima, $borrowingId)
+    {
+        Mail::to($penerima, "Tim sukses")->send(new PeminjamanEmail($borrowingId));
+
+        return response()->json(["Email has been sent"], 200);
     }
 }

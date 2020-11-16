@@ -22,6 +22,7 @@ class CreateBorrowingTable extends Migration
             $table->string("teacher_in_charge");
             $table->string('borrow_date');
             $table->boolean('approved')->nullable();
+            $table->longText("teacher_reason")->nullable();
             $table->timestamps();
             $table->foreign('user_id')
                     ->references('id')

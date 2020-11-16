@@ -9,7 +9,7 @@ class Borrowing extends Model
 {
     use HasFactory;
     protected $table = "borrowing";
-    protected $fillable = ["urgent", "necessity", "teacher_in_charge", "user_id", "reason", "borrow_date", "approved"];
+    protected $fillable = ["urgent", "necessity", "teacher_in_charge", "user_id", "reason", "borrow_date", "approved", "teacher_reason"];
 
     public function user()
     {

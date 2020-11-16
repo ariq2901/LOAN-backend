@@ -240,6 +240,7 @@
                                         <li><span class=" font-semibold" style="color: rgb(255, 23, 104)">JSON:</span> { "necessity" : string, "teacher_in_charge": string, "borrow_date": string, "reason": string }</li><hr>
                                         <span style="margin-top: 10px"><span class="salmon">*</span> untuk kolom <span class="text-gray-900 font-semibold dark:text-white"> "reason"</span> nullable, jika <span class="text-gray-900 font-semibold dark:text-white">"borrow_date" == "request_borrow"</span> (request_borrow ada di laravel) maka reason required, jika tidak sama maka kosongkan </span><br>
                                         <span style="margin-top: 10px"><span class="salmon">*</span> format <span class="text-gray-900 font-semibold dark:text-white"> "borrow_date"</span> YYYY-MM-DD</span><br>
+                                        <span style="margin-top: 10px"><span class="salmon">*</span> untuk kolom <span class="text-gray-900 font-semibold dark:text-white"> "teacher_in_charge"</span> harus sesuai dengan <span class="text-gray-900 dark:text-white" style="font-weight: 900">nama</span> guru / musyrif yang ada di <span class="text-gray-900 dark:text-white" style="font-weight: 900">table user</span></span><br>
                                     </ul>
                                 </div>
                             </div>
@@ -279,7 +280,7 @@
                             <div class="flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 52 52"><circle id="postl" cx="26" cy="26" r="26" fill="#9326FF"/></svg>
                                 <div class="flex" style="width: 100%; justify-content: space-between">
-                                    <div class="ml-4 text-lg leading-2 font-semibold"><span class="text-gray-900 dark:text-white">Laporan Peminjaman</span></div>
+                                    <div class="ml-4 text-lg leading-2 font-semibold"><span class="text-gray-900 dark:text-white">List Approval</span></div>
                                     <div class="ml-4 text-lg leading-2 font-semibold"><span class="text-gray-900 dark:text-white">Role :</span> <span style="color: #f0259f">Teacher ,</span> <span style="color: #f05454">Musyrif</span></div>
                                 </div>
                             </div>
@@ -288,12 +289,74 @@
                                     GET
                                 </div>
                                 <div class="mt-2 text-gray-600 dark:text-gray-400">
-                                    /api/laporan
+                                    /api/list-approval/{approver}
                                 </div>
                                 <div class="mt-2 text-gray-600 dark:text-gray-400">
                                     <span class="font-semibold">Headers</span>
                                     <ul style="margin: 0">
                                         <li><span class="font-semibold" style="color: rgb(255, 23, 104)">JSON:</span> { 'Authorization' : "Bearer {token}" }</li>
+                                        <span style="margin-top: 10px"><span class="salmon">*</span> parameter approver : <span class="text-gray-900 font-semibold dark:text-white"> teacher ,</span> <span class="text-gray-900 font-semibold dark:text-white">musyrif</span></span><br>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
+                    <div class="violet">
+                        <div class="p-6">
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 52 52"><circle id="postl" cx="26" cy="26" r="26" fill="#9326FF"/></svg>
+                                <div class="flex" style="width: 100%; justify-content: space-between">
+                                    <div class="ml-4 text-lg leading-2 font-semibold"><span class="text-gray-900 dark:text-white">Get Approval by ID</span></div>
+                                    <div class="ml-4 text-lg leading-2 font-semibold"><span class="text-gray-900 dark:text-white">Role :</span> <span style="color: #f0259f">Teacher ,</span> <span style="color: #f05454">Musyrif</span></div>
+                                </div>
+                            </div>
+                            <div class="ml-12">
+                                <div class="mt-1 text-gray-600 dark:text-gray-400 font-semibold text-md">
+                                    GET
+                                </div>
+                                <div class="mt-2 text-gray-600 dark:text-gray-400">
+                                    /api/show-approval/{id}
+                                </div>
+                                <div class="mt-2 text-gray-600 dark:text-gray-400">
+                                    <span class="font-semibold">Headers</span>
+                                    <ul style="margin: 0">
+                                        <li><span class="font-semibold" style="color: rgb(255, 23, 104)">JSON:</span> { 'Authorization' : "Bearer {token}" }</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
+                    <div class="violet">
+                        <div class="p-6">
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 52 52"><circle id="postl" cx="26" cy="26" r="26" fill="#9326FF"/></svg>
+                                <div class="flex" style="width: 100%; justify-content: space-between">
+                                    <div class="ml-4 text-lg leading-2 font-semibold"><span class="text-gray-900 dark:text-white">Approvement accepted/declined</span></div>
+                                    <div class="ml-4 text-lg leading-2 font-semibold"><span class="text-gray-900 dark:text-white">Role :</span> <span style="color: #f0259f">Teacher ,</span> <span style="color: #f05454">Musyrif</span></div>
+                                </div>
+                            </div>
+                            <div class="ml-12">
+                                <div class="mt-1 text-gray-600 dark:text-gray-400 font-semibold text-md">
+                                    POST
+                                </div>
+                                <div class="mt-2 text-gray-600 dark:text-gray-400">
+                                    /api/approvement/{id}
+                                </div>
+                                <div class="mt-2 text-gray-600 dark:text-gray-400">
+                                    <span class="font-semibold">Headers</span>
+                                    <ul style="margin: 0">
+                                        <li><span class="font-semibold" style="color: rgb(255, 23, 104)">JSON:</span> { 'Authorization' : "Bearer {token}" }</li>
+                                    </ul>
+                                </div>
+                                <div class="mt-2 text-gray-600 dark:text-gray-400">
+                                    <span class="font-semibold">Body</span>
+                                    <ul style="margin: 0">
+                                        <li><span class=" font-semibold" style="color: rgb(255, 23, 104)">JSON:</span> { "approved" : boolean, "reason": string }</li><hr>
+                                        <span style="margin-top: 10px"><span class="salmon">*</span> untuk memberikan <span class="text-gray-900 font-semibold dark:text-white"> persetujuan</span> disetujui / ditolak</span><br>
                                     </ul>
                                 </div>
                             </div>
