@@ -363,6 +363,68 @@
                         </div>
                     </div>
                 </div>
+                <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
+                    <div class="sea">
+                        <div class="p-6">
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 52 52"><circle id="postl" cx="26" cy="26" r="26" fill="#0278ae"/></svg>
+                                <div class="flex" style="width: 100%; justify-content: space-between">
+                                    <div class="ml-4 text-lg leading-2 font-semibold"><span class="text-gray-900 dark:text-white">Assignment / setor tugas</span></div>
+                                    <div class="ml-4 text-lg leading-2 font-semibold"><span class="text-gray-900 dark:text-white">Role :</span> <span style="color: #0278ae">Student</span></div>
+                                </div>
+                            </div>
+                            <div class="ml-12">
+                                <div class="mt-1 text-gray-600 dark:text-gray-400 font-semibold text-md">
+                                    POST
+                                </div>
+                                <div class="mt-2 text-gray-600 dark:text-gray-400">
+                                    /api/assignment/{borrowingId}
+                                </div>
+                                <div class="mt-2 text-gray-600 dark:text-gray-400">
+                                    <span class="font-semibold">Headers</span>
+                                    <ul style="margin: 0">
+                                        <li><span class="font-semibold" style="color: rgb(255, 23, 104)">JSON:</span> { 'Authorization' : "Bearer {token}" }</li>
+                                    </ul>
+                                </div>
+                                <div class="mt-2 text-gray-600 dark:text-gray-400">
+                                    <span class="font-semibold">Body</span>
+                                    <ul style="margin: 0">
+                                        <li><span class=" font-semibold" style="color: rgb(255, 23, 104)">JSON:</span> { "description" : string, "image": FILE }</li><hr>
+                                        <span style="margin-top: 10px"><span class="salmon">*</span> untuk mengupload <span class="text-gray-900 font-semibold dark:text-white"> tugas</span> yang sudah dikerjakan</span><br>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{-- Route::get('/show-assignment/{id}', 'App\Http\Controllers\TeacherController@showAssignment'); --}}
+                <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
+                    <div class="violet">
+                        <div class="p-6">
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 52 52"><circle id="postl" cx="26" cy="26" r="26" fill="#9326FF"/></svg>
+                                <div class="flex" style="width: 100%; justify-content: space-between">
+                                    <div class="ml-4 text-lg leading-2 font-semibold"><span class="text-gray-900 dark:text-white">Show Assignment By ID</span></div>
+                                    <div class="ml-4 text-lg leading-2 font-semibold"><span class="text-gray-900 dark:text-white">Role :</span> <span style="color: #f0259f">Teacher ,</span> <span style="color: #f05454">Musyrif</span></div>
+                                </div>
+                            </div>
+                            <div class="ml-12">
+                                <div class="mt-1 text-gray-600 dark:text-gray-400 font-semibold text-md">
+                                    GET
+                                </div>
+                                <div class="mt-2 text-gray-600 dark:text-gray-400">
+                                    /api/show-assignment/{id}
+                                </div>
+                                <div class="mt-2 text-gray-600 dark:text-gray-400">
+                                    <span class="font-semibold">Headers</span>
+                                    <ul style="margin: 0">
+                                        <li><span class="font-semibold" style="color: rgb(255, 23, 104)">JSON:</span> { 'Authorization' : "Bearer {token}" }</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 {{-- <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
                     <div class="grid grid-cols-1 md:grid-cols-2">
                         <div class="p-6">

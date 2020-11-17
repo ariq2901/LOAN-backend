@@ -15,4 +15,9 @@ class Borrowing extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function assignment()
+    {
+        return $this->hasOne(Assignment::class);
+    }
 }

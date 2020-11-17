@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\PeminjamanEmail;
+use App\Models\Assignment;
 use App\Models\Borrowing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -52,7 +53,7 @@ class TeacherController extends Controller
             if($validator->fails()) {
                 return response()->json(["error" => $validator->errors()], 401);
             }
-            $input = $request->all();//req all
+            $input = $request->all();
             Borrowing::where("id", $id)
                         ->update([
                                 'approved' => $input['approved'],
@@ -76,5 +77,16 @@ class TeacherController extends Controller
                             'teacher_reason' => $input['teacher_reason']
                         ]);
         return response()->json(["message" => "borrowing request has been declined"], 401);
+    }
+
+    public function showAssignment($id)
+    {
+        $assignment = Assignment::find($id)->picture->first();
+        if($assignment == null) {
+            return response()->json(["error" => "there is no assignment submission"], 404);
+        }
+        return response()->json(["setor tugas" => $assignment], 200);
+        //? to download image
+        // return response()->download(public_path('storage/users/'.$assignment->image), 'image view');
     }
 }

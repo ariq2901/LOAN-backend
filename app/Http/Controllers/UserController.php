@@ -116,4 +116,9 @@ class UserController extends Controller
         }
         return response()->json(["user" => $users], 200);
     }
+
+    public function imageDownload()
+    {
+        return response()->download(public_path('storage/users/14f82ac0a5301331c9bcaeb36b5cd02b.png'), 'Postman image ss');
+    }
 }

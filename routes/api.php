@@ -35,6 +35,7 @@ Route::group(['middleware' => ['auth:api', 'role:teacher|musyrif']], function() 
     Route::get('/list-approval/{approver}', 'App\Http\Controllers\TeacherController@listApproval');
     Route::get('/show-approval/{id}', 'App\Http\Controllers\TeacherController@showApproval');
     Route::post('/approvement/{id}', 'App\Http\Controllers\TeacherController@approvement');
+    Route::get('/show-assignment/{id}', 'App\Http\Controllers\TeacherController@showAssignment');
 });
 
 //^ Student's Role
@@ -42,10 +43,12 @@ Route::group(['middleware' => ['auth:api', 'role:student']], function() {
     Route::post('/request-borrow', 'App\Http\Controllers\StudentController@requestBorrowing');
     Route::get('/history-borrow', 'App\Http\Controllers\StudentController@historyBorrowing');
     Route::get('/get-date', 'App\Http\Controllers\StudentController@getDate');
-    Route::get('/notifpinjam', 'App\Http\Controllers\StudentController@notifpinjam');
+    Route::post('/assignment/{borrowingId}', 'App\Http\Controllers\StudentController@setorTugas');
     Route::post('/upload-img', 'App\Http\Controllers\StudentController@uploadImage');
 });
 
 // Route::get('/peminjamanemail', function() {
 //     return view('peminjaman');
 // });
+
+Route::get('file/image', 'App\Http\Controllers\UserController@imageDownload');

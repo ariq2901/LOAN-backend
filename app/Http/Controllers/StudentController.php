@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Mail\PeminjamanEmail;
+use App\Models\Assignment;
 use App\Models\Borrowing;
+use App\Models\Picture;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -123,24 +125,43 @@ class StudentController extends Controller
         return response()->json(["Email has been sent"], 200);
     }
 
-    public function uploadImage(Request $request)
+    public function setorTugas(Request $request, $borrowingId)
     {
+        
+        
         $validator = Validator::make($request->all(), [
-            'image' => 'required|image:jpeg,png,gif,svg|max:2048'
-        ]);
-
+            "description" =>"required",
+            "image" => "required|image:jpeg,png,gif,svg|max:2048"
+            ]);
         if($validator->fails()) {
             return response()->json(["error" => $validator->errors()], 500);
         }
+        $input = $request->all();
+        $input['borrowing_id'] = $borrowingId;
+        $assignment = Assignment::create($input);
+        
+        //^ Upload Images
         $uploadFolder = 'users';
         $md5 = md5_file($request->file('image')->getRealPath());
         $ext = $request->file('image')->guessExtension();
-        $file = $request->file('image')->storeAs($uploadFolder, $md5 . '.' . $ext, 'public');
+        $finalName = $md5 . '.' . $ext;
+        $file = $request->file('image')->storeAs($uploadFolder, $finalName, 'public');
+        $input = $request->all();
+        $assignmentId = $assignment->id;
+        $pictureInput = [];
+        $pictureInput['assignment_id'] = $assignmentId;
+        $pictureInput['image'] = $finalName;
+        $picture = Picture::create($pictureInput);
+        
         $uploadedImageResponse = array(
             "image" => basename($file),
             "image_url" => Storage::disk('public')->url($file),
             "mime" => $request->file('image')->getClientMimeType()
         );
-        return response()->json(["message" => "File uploaded successfully", "data" => $uploadedImageResponse], 200);
+
+        if($assignment) {
+            return response()->json(["message" => "Assignment successfully added"], 200);
+        }
+        return response()->json(["error" => "an error occured"], 400);
     }
 }
