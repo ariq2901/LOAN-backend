@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class StudentController extends Controller
@@ -120,5 +121,26 @@ class StudentController extends Controller
         Mail::to($penerima, "Tim sukses")->send(new PeminjamanEmail($borrowingId));
 
         return response()->json(["Email has been sent"], 200);
+    }
+
+    public function uploadImage(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'image' => 'required|image:jpeg,png,gif,svg|max:2048'
+        ]);
+
+        if($validator->fails()) {
+            return response()->json(["error" => $validator->errors()], 500);
+        }
+        $uploadFolder = 'users';
+        $md5 = md5_file($request->file('image')->getRealPath());
+        $ext = $request->file('image')->guessExtension();
+        $file = $request->file('image')->storeAs($uploadFolder, $md5 . '.' . $ext, 'public');
+        $uploadedImageResponse = array(
+            "image" => basename($file),
+            "image_url" => Storage::disk('public')->url($file),
+            "mime" => $request->file('image')->getClientMimeType()
+        );
+        return response()->json(["message" => "File uploaded successfully", "data" => $uploadedImageResponse], 200);
     }
 }

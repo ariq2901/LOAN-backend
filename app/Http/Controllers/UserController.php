@@ -88,6 +88,7 @@ class UserController extends Controller
     public function detailUser() {
         $user = Auth::user();
         $user['role'] = $user->getRoleNames();
+        unset($user['roles']);
         return response()->json(['data' => $user], $this->successCode);
     }
 

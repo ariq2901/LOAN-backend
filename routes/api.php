@@ -43,6 +43,7 @@ Route::group(['middleware' => ['auth:api', 'role:student']], function() {
     Route::get('/history-borrow', 'App\Http\Controllers\StudentController@historyBorrowing');
     Route::get('/get-date', 'App\Http\Controllers\StudentController@getDate');
     Route::get('/notifpinjam', 'App\Http\Controllers\StudentController@notifpinjam');
+    Route::post('/upload-img', 'App\Http\Controllers\StudentController@uploadImage');
 });
 
 // Route::get('/peminjamanemail', function() {
