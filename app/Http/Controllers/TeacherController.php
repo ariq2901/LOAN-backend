@@ -52,7 +52,7 @@ class TeacherController extends Controller
             if($validator->fails()) {
                 return response()->json(["error" => $validator->errors()], 401);
             }
-            $input = $request->all();
+            $input = $request->all();//req all
             Borrowing::where("id", $id)
                         ->update([
                                 'approved' => $input['approved'],
