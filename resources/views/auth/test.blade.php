@@ -232,19 +232,15 @@
       <div class="form">
         <p class="title">Change password</p>
         <p class="subtitle">change with your new passwod here</p>
-        <form action="/api/reset-password" method="post">
-          @csrf
-          @method("POST")
-          <input type="hidden" name="token" value={{ $token }}>
-          <input type="hidden" name="email" value={{ $email }}>
-          <input type="password" id="password" name="password" required placeholder="password">
+        <form action="" method="post">
+          <input type="password" id="password" required placeholder="password">
           <div class="meter-pass">
               <meter id="password-strength-meter"
               min="0" max="4">
             </meter>
             <p id="password-strength-text"></p>
           </div>
-          <input type="password" onchange="check()" id="password_confirmation" name="password_confirmation" required placeholder="Confirm your password">
+          <input type="password" onchange="check()" id="password_confirmation" required placeholder="Confirm your password">
           <button type="submit" class="submit">Reset Password</button>
         </form>
       </div>
