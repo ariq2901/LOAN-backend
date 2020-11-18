@@ -1,8 +1,12 @@
 <?php
 
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 $url = "App\Http\Controllers";
 /*
 |--------------------------------------------------------------------------
@@ -48,7 +52,41 @@ Route::group(['middleware' => ['auth:api', 'role:student']], function() {
 });
 
 // Route::get('/peminjamanemail', function() {
-//     return view('peminjaman');
-// });
-
+    //     return view('peminjaman');
+    // });
+    
 Route::get('file/image', 'App\Http\Controllers\UserController@imageDownload');
+Route::post('/forgot-password', function(Request $request) {
+    $request->validate(["email" => 'required|email']);
+
+    $status = Password::sendResetLink(
+        $request->only('email')
+    );
+
+    return $status === Password::RESET_LINK_SENT ? response()->json(["message" => __($status)], 200) : response()->json(["error" => __($status)], 400);
+})->name('password.email');
+Route::get('/reset-password/{token}', function ($token) {
+    return view('auth.reset-password', ['token' => $token]);
+})->name('password.reset');
+Route::post('/reset-password', function(Request $request) {
+    $request->validate([
+        'token' => 'required',
+        'email' => 'required|email',
+        'password' => 'required'
+    ]);
+
+    $status = Password::reset(
+        $request->only('email', 'password', 'password_confirmation', 'token'),
+        function ($user, $password) use ($request) {
+            $user->forceFill([
+                'password' => Hash::make($password)
+            ])->save();
+
+            $user->setRememberToken(Str::random(60));
+
+            event(new PasswordReset($user));
+        }
+    );
+
+    return $status == Password::PASSWORD_RESET ? view("inforeset", ['status' => __($status)]) : view("inforeset", ['status' => __($status)]);
+})->name('password.update');
