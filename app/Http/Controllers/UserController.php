@@ -87,6 +87,9 @@ class UserController extends Controller
     
     public function detailUser() {
         $user = Auth::user();
+        if($user['email_verified_at'] == null) {
+            return response()->json(['error' => "verify your account to see user detail"], 400);
+        }
         $user['role'] = $user->getRoleNames();
         unset($user['roles']);
         return response()->json(['data' => $user], $this->successCode);

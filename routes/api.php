@@ -28,7 +28,7 @@ Route::post('/register', $url . '\UserController@register')->name('register');
 Route::get('/users/{role}', $url . '\UserController@getUsersByRole');
 
 // ^ All Role
-Route::group(['middleware' => 'auth:api', 'verified'], function() {
+Route::group(['middleware' => 'auth:api', 'cekverified'], function() {
     Route::get('/user/detail', 'App\Http\Controllers\UserController@detailUser');
     Route::get('/logout', 'App\Http\Controllers\UserController@logout');
 });
@@ -54,8 +54,10 @@ Route::group(['middleware' => ['auth:api', 'role:student']], function() {
 // Route::get('/peminjamanemail', function() {
     //     return view('peminjaman');
     // });
-    
-Route::get('file/image', 'App\Http\Controllers\UserController@imageDownload');
+
+// Route::get('file/image', 'App\Http\Controllers\UserController@imageDownload');
+
+//^ Forgot Pass
 Route::post('/forgot-password', function(Request $request) {
     $request->validate(["email" => 'required|email']);
 
@@ -91,6 +93,3 @@ Route::post('/reset-password', function(Request $request) {
 
     return $status == Password::PASSWORD_RESET ? view("inforeset", ['status' => __($status)]) : view("inforeset", ['status' => __($status)]);
 })->name('password.update');
-Route::get('test', function() {
-    return view('auth.test');
-});
