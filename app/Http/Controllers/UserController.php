@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Avtar;
+use App\StatusCode;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -133,8 +134,15 @@ class UserController extends Controller
         return response()->json(["user" => $users], 200);
     }
 
-    public function imageDownload()
+    public function imageDownload($id)
     {
-        return response()->download(public_path('storage/users/14f82ac0a5301331c9bcaeb36b5cd02b.png'), 'Postman image ss');
+        try {
+            $image = Avtar::findOrFail($id);
+        } catch (\Throwable $th) {
+            return response()->error('Image not found', StatusCode::NOT_FOUND);
+        }
+        $path = Storage::disk('local')->path("public/images/avatars/$image->image");
+        // return response()->download(public_path('storage/users/14f82ac0a5301331c9bcaeb36b5cd02b.png'), 'Postman image ss');
+        return response()->file($path);
     }
 }

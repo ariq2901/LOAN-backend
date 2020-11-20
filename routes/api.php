@@ -55,7 +55,7 @@ Route::group(['middleware' => ['auth:api', 'role:student']], function() {
     //     return view('peminjaman');
     // });
 
-// Route::get('file/image', 'App\Http\Controllers\UserController@imageDownload');
+Route::get('file/image/{id}', 'App\Http\Controllers\UserController@imageDownload');
 
 //^ Forgot Pass
 Route::post('/forgot-password', function(Request $request) {
