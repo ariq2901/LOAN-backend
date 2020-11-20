@@ -31,6 +31,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Borrowing::class, 'user_id');
     }
 
+    public function avtar()
+    {
+        return $this->hasOne(Avtar::class, 'user_id');
+    }
+
     public function sendEmailVerificationNotification()
     {
         $this->notify(new VerifyApiEmail);

@@ -27,11 +27,11 @@ class StudentController extends Controller
     }
 
     
-    public function historyBorrowing(User $user)
+    public function historyBorrowing(User $user, $per_page = 5)
     {
         $getuser = Auth::user();
         $userId = $getuser['id'];
-        $borrowings = $user->find($userId)->borrowings;
+        $borrowings = $user->find($userId)->borrowings()->paginate($per_page);
         if(count($borrowings) > 0) {
             return response()->json(["message" => "success", "data" => $borrowings], 200);
         }

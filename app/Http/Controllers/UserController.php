@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Avtar;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Role;
 use SMTPValidateEmail\Validator as SmtpEmailValidator;
+use Laravolt\Avatar\Facade as Avatar;
 
 class UserController extends Controller
 {
@@ -57,6 +59,7 @@ class UserController extends Controller
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
+        $userId = $user->id;
         if($input['role'] == 'teacher' || $input['role'] == 'guru') {
             $user->assignRole('teacher');
         }
@@ -66,7 +69,12 @@ class UserController extends Controller
         if($input['role'] == 'musyrif') {
             $user->assignRole('musyrif');
         }
-        
+        $picName = md5($input['name']) . '.' . 'png';
+        Avatar::create($input['name'])->save(public_path('/storage/users/') . $picName, $quality = 90);
+        $avtar = [];
+        $avtar['user_id'] = $userId;
+        $avtar['image'] = $picName;
+        Avtar::create($avtar);
         
         event(new Registered($user));
         $data['message'] = "Please verify your email that we've sent to your mailbox";
@@ -90,8 +98,10 @@ class UserController extends Controller
         if($user['email_verified_at'] == null) {
             return response()->json(['error' => "verify your account to see user detail"], 400);
         }
+        $user['avatar'] = $user->avtar->image;
         $user['role'] = $user->getRoleNames();
         unset($user['roles']);
+        unset($user['avtar']);
         return response()->json(['data' => $user], $this->successCode);
     }
 

@@ -289,12 +289,13 @@
                                     GET
                                 </div>
                                 <div class="mt-2 text-gray-600 dark:text-gray-400">
-                                    /api/history-borrow
+                                    /api/history-borrow/{per_page}
                                 </div>
                                 <div class="mt-2 text-gray-600 dark:text-gray-400">
                                     <span class="font-semibold">Headers</span>
                                     <ul style="margin: 0">
                                         <li><span class="font-semibold" style="color: rgb(255, 23, 104)">JSON:</span> { 'Authorization' : "Bearer {token}" }</li>
+                                        <span style="margin-top: 10px"><span class="salmon">*</span> parameter per_page : <span class="text-gray-900 font-semibold dark:text-white">optional</span>. Nilai default : <span class="text-gray-900 font-semibold dark:text-white">5</span>. Tipe param : <span class="text-gray-900 font-semibold dark:text-white">integer</span></span><br>
                                     </ul>
                                 </div>
                             </div>

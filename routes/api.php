@@ -45,7 +45,7 @@ Route::group(['middleware' => ['auth:api', 'role:teacher|musyrif']], function() 
 //^ Student's Role
 Route::group(['middleware' => ['auth:api', 'role:student']], function() {
     Route::post('/request-borrow', 'App\Http\Controllers\StudentController@requestBorrowing');
-    Route::get('/history-borrow', 'App\Http\Controllers\StudentController@historyBorrowing');
+    Route::get('/history-borrow/{per_page?}', 'App\Http\Controllers\StudentController@historyBorrowing');
     Route::get('/get-date', 'App\Http\Controllers\StudentController@getDate');
     Route::post('/assignment/{borrowingId}', 'App\Http\Controllers\StudentController@setorTugas');
     Route::post('/upload-img', 'App\Http\Controllers\StudentController@uploadImage');
