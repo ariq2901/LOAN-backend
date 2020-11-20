@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Role;
 use SMTPValidateEmail\Validator as SmtpEmailValidator;
@@ -70,7 +71,9 @@ class UserController extends Controller
             $user->assignRole('musyrif');
         }
         $picName = md5($input['name']) . '.' . 'png';
-        Avatar::create($input['name'])->save(public_path('/storage/users/') . $picName, $quality = 90);
+        $avatar = Avatar::create($user->name)->getImageObject()->encode('png');
+        Storage::put('public/images/avatars/' . $picName, (string) $avatar);
+        $avName = $user->name . '.' . 'png';
         $avtar = [];
         $avtar['user_id'] = $userId;
         $avtar['image'] = $picName;
