@@ -74,7 +74,6 @@ class UserController extends Controller
         $picName = md5($input['name']) . '.' . 'png';
         $avatar = Avatar::create($user->name)->getImageObject()->encode('png');
         Storage::put('public/images/avatars/' . $picName, (string) $avatar);
-        $avName = $user->name . '.' . 'png';
         $avtar = [];
         $avtar['user_id'] = $userId;
         $avtar['image'] = $picName;
@@ -102,7 +101,7 @@ class UserController extends Controller
         if($user['email_verified_at'] == null) {
             return response()->json(['error' => "verify your account to see user detail"], 400);
         }
-        $user['avatar'] = $user->avtar->image;
+        $user['avatar_id'] = $user->avtar->id;
         $user['role'] = $user->getRoleNames();
         unset($user['roles']);
         unset($user['avtar']);
