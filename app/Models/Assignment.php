@@ -19,6 +19,11 @@ class Assignment extends Model
 
     public function crucial()
     {
-        return $this->hasOne(Assignment::class);
+        return $this->hasOne(Crucial::class);
+    }
+
+    public function borrowing()
+    {
+        return $this->belongsTo(Borrowing::class);
     }
 }

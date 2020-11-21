@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Assignment;
 use App\Models\Avtar;
+use App\Models\Borrowing;
+use App\Models\Crucial;
 use App\StatusCode;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -143,5 +146,31 @@ class UserController extends Controller
         $path = Storage::disk('local')->path("public/images/avatars/$image->image");
         // return response()->download(public_path('storage/users/14f82ac0a5301331c9bcaeb36b5cd02b.png'), 'Postman image ss');
         return response()->file($path);
+    }
+
+    public function getUserByAssignment($assignment_id)
+    {   
+        //^ assignment
+        $assignment = Crucial::find($assignment_id)->assignment->first();
+        
+        //^ borrowing
+        $borrowing_id = $assignment['borrowing_id'];
+        $borrowing = Borrowing::findOrFail($borrowing_id)->first();
+        
+        //^ user
+        $user_id = $borrowing['user_id'];
+        $user = User::findOrFail($user_id)->first();
+        return response()->json(['user', $user], StatusCode::OK);
+        
+        // $user = Borrowing::with(['user'])->where('')
+
+        // $user = User::assignment()->find($assignment_id)->first();
+        // return response()->json(['user', $user], StatusCode::OK);
+        // try {
+        //     $user = User::assignment()->find($assignment_id)->first();
+        //     return response()->json(['user', $user], StatusCode::OK);
+        // } catch (\Throwable $th) {
+        //     return response()->json(['error' => 'User not found'], StatusCode::NOT_FOUND);
+        // }
     }
 }

@@ -26,6 +26,7 @@ Route::post('email/resend', 'App\Http\Controllers\VerificationApiController@rese
 Route::post('/login', $url . '\UserController@login')->middleware('cekverified')->name('login');
 Route::post('/register', $url . '\UserController@register')->name('register');
 Route::get('/users/{role}', $url . '\UserController@getUsersByRole');
+Route::get('file/image/{id}', 'App\Http\Controllers\UserController@imageDownload');
 
 // ^ All Role
 Route::group(['middleware' => 'auth:api', 'cekverified'], function() {
@@ -40,6 +41,7 @@ Route::group(['middleware' => ['auth:api', 'role:teacher|musyrif']], function() 
     Route::get('/show-approval/{id}', 'App\Http\Controllers\TeacherController@showApproval');
     Route::post('/approvement/{id}', 'App\Http\Controllers\TeacherController@approvement');
     Route::get('/show-assignment/{id}', 'App\Http\Controllers\TeacherController@showAssignment');
+    Route::post('/pass-assignment/{id}', 'App\Http\Controllers\TeacherController@pass');
 });
 
 //^ Student's Role
@@ -54,8 +56,7 @@ Route::group(['middleware' => ['auth:api', 'role:student']], function() {
 // Route::get('/peminjamanemail', function() {
     //     return view('peminjaman');
     // });
-
-Route::get('file/image/{id}', 'App\Http\Controllers\UserController@imageDownload');
+Route::get('/user-by-assignment-id/{id}', 'App\Http\Controllers\UserController@getUserByAssignment');
 
 //^ Forgot Pass
 Route::post('/forgot-password', function(Request $request) {

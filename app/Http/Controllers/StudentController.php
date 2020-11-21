@@ -7,6 +7,7 @@ use App\Models\Assignment;
 use App\Models\Borrowing;
 use App\Models\Picture;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -31,11 +32,12 @@ class StudentController extends Controller
     {
         $getuser = Auth::user();
         $userId = $getuser['id'];
-        $borrowings = $user->find($userId)->borrowings()->paginate($per_page);
-        if(count($borrowings) > 0) {
-            return response()->json(["message" => "success", "data" => $borrowings], 200);
+        $borrowings = $user->find($userId)->borrowings()->orderBy("id", "desc")->paginate($per_page);
+        $count = count($borrowings);
+        for ($i=0; $i < $count; $i++) {
+            $borrowings[$i]['created'] = Carbon::parse($borrowings[$i]['created_at'])->diffForHumans();
         }
-        return response()->json(["message" => "user hasn't had a borrowing request"], 200);
+        return response()->json(["message" => "success", "data" => $borrowings], 200);
     }
 
     public function requestBorrowing(Request $request, User $user)
@@ -127,8 +129,6 @@ class StudentController extends Controller
 
     public function setorTugas(Request $request, $borrowingId)
     {
-        
-        
         $validator = Validator::make($request->all(), [
             "description" =>"required",
             "image" => "required|image:jpeg,png,gif,svg|max:2048"

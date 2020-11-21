@@ -9,7 +9,7 @@ class Crucial extends Model
 {
     use HasFactory;
     protected $table = "crucial";
-    protected $fillable = ["assignment_id", "safe"];
+    protected $fillable = ["assignment_id", "status"];
 
     public function assignment()
     {
