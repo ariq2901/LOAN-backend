@@ -6,6 +6,7 @@ use App\Models\Assignment;
 use App\Models\Avtar;
 use App\Models\Borrowing;
 use App\Models\Crucial;
+use App\Models\Picture;
 use App\StatusCode;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -87,7 +88,7 @@ class UserController extends Controller
         $data['name'] = $user->name;
         $data['role'] = $user->getRoleNames();
         $data['token'] = $user->createToken('nApp')->accessToken;
-        return response()->json(['data' => $data], $this->successCode);
+        return response()->json(['data' => $data], StatusCode::OK);
     }
     
     public function logout(Request $request) {
@@ -145,6 +146,17 @@ class UserController extends Controller
         }
         $path = Storage::disk('local')->path("public/images/avatars/$image->image");
         // return response()->download(public_path('storage/users/14f82ac0a5301331c9bcaeb36b5cd02b.png'), 'Postman image ss');
+        return response()->file($path);
+    }
+
+    public function assignmentImage($assignmentId)
+    {
+        try {
+            $image = Picture::where("assignment_id", $assignmentId)->first();
+        } catch (\Throwable $th) {
+            return response()->json('Image not found', StatusCode::NOT_FOUND);
+        }
+        $path = Storage::disk('local')->path("public/images/assignments/$assignmentId/$image->image");
         return response()->file($path);
     }
 

@@ -84,9 +84,10 @@ class TeacherController extends Controller
 
     public function showAssignment($id)
     {
-        $label = Assignment::find($id);
+        $label = Assignment::where("id", $id);
         $assignment = $label->first();
-        $assignment['picture'] = $label->picture->first();
+        // $assignment['picture'] = $label->picture;
+        $assignment['picture'] = Assignment::where("id", $id)->first()->picture[0]['image'];
         if($assignment == null) {
             return response()->json(["error" => "there is no assignment submission"], 404);
         }

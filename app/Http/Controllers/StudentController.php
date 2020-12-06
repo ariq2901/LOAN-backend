@@ -129,6 +129,7 @@ class StudentController extends Controller
 
     public function setorTugas(Request $request, $borrowingId)
     {
+
         $validator = Validator::make($request->all(), [
             "description" =>"required",
             "image" => "required|image:jpeg,png,gif,svg|max:2048"
@@ -140,24 +141,26 @@ class StudentController extends Controller
         $input['borrowing_id'] = $borrowingId;
         $assignment = Assignment::create($input);
         
+        // $uploadFolder = 'users';
+        // $file = $request->file('image')->storeAs($uploadFolder, $finalName, 'public');
+        // $input = $request->all();
+        // $uploadedImageResponse = array(
+            //     "image" => basename($file),
+            //     "image_url" => Storage::disk('public')->url($file),
+            //     "mime" => $request->file('image')->getClientMimeType()
+            // );
+            
         //^ Upload Images
-        $uploadFolder = 'users';
         $md5 = md5_file($request->file('image')->getRealPath());
         $ext = $request->file('image')->guessExtension();
         $finalName = $md5 . '.' . $ext;
-        $file = $request->file('image')->storeAs($uploadFolder, $finalName, 'public');
-        $input = $request->all();
+        $request->file('image')->storeAs("/images/assignments/$assignment->id/", $finalName, 'public');
+        // Storage::put("public/images/assignments/$assignment->id/" . $finalName   , $request->file('image'));
         $assignmentId = $assignment->id;
         $pictureInput = [];
         $pictureInput['assignment_id'] = $assignmentId;
         $pictureInput['image'] = $finalName;
-        $picture = Picture::create($pictureInput);
-        
-        $uploadedImageResponse = array(
-            "image" => basename($file),
-            "image_url" => Storage::disk('public')->url($file),
-            "mime" => $request->file('image')->getClientMimeType()
-        );
+        Picture::create($pictureInput);
 
         if($assignment) {
             return response()->json(["message" => "Assignment successfully added"], 200);

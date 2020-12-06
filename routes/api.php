@@ -27,6 +27,7 @@ Route::post('/login', $url . '\UserController@login')->middleware('cekverified')
 Route::post('/register', $url . '\UserController@register')->name('register');
 Route::get('/users/{role}', $url . '\UserController@getUsersByRole');
 Route::get('file/image/{id}', 'App\Http\Controllers\UserController@imageDownload');
+Route::get('/assignment/image/{assignmentId}', 'App\Http\Controllers\UserController@assignmentImage');
 
 // ^ All Role
 Route::group(['middleware' => 'auth:api', 'cekverified'], function() {
@@ -54,8 +55,9 @@ Route::group(['middleware' => ['auth:api', 'role:student']], function() {
 });
 
 // Route::get('/peminjamanemail', function() {
-    //     return view('peminjaman');
-    // });
+//     return view('peminjaman');
+// });
+
 Route::get('/user-by-assignment-id/{id}', 'App\Http\Controllers\UserController@getUserByAssignment');
 
 //^ Forgot Pass
