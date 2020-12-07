@@ -2,27 +2,26 @@
 
 namespace App\Mail;
 
-use App\Models\Borrowing;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class PeminjamanEmail extends Mailable
+class SuratPeringatan extends Mailable
 {
     use Queueable, SerializesModels;
-    
-    protected $borrowingId;
+
+    protected $userId;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($borrowingId)
+    public function __construct($userId)
     {
-        $this->borrowingId = $borrowingId;
+        $this->userId = $userId;
     }
 
     /**
@@ -32,16 +31,13 @@ class PeminjamanEmail extends Mailable
      */
     public function build()
     {
-        $id = $this->borrowingId;
-        $borrow = Borrowing::where("id", $id)->first();
-        $userId = $borrow->user_id;
-        $user = User::find($userId)->get("name")[0];
-        $borrow->name = $user->name;
+        $id = $this->userId;
+        $user = User::where("id", $id)->first();
         return $this->from('fakeghuroba@gmail.com')
-                    ->view('peminjaman')
+                    ->view('suratperingatan')
                     ->with(
                         [
-                            "borrow" => $borrow
+                            "user" => $user
                         ]
                     );
     }

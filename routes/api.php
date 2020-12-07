@@ -43,6 +43,7 @@ Route::group(['middleware' => ['auth:api', 'role:teacher|musyrif']], function() 
     Route::post('/approvement/{id}', 'App\Http\Controllers\TeacherController@approvement');
     Route::get('/show-assignment/{id}', 'App\Http\Controllers\TeacherController@showAssignment');
     Route::post('/pass-assignment/{id}', 'App\Http\Controllers\TeacherController@pass');
+    Route::get('/check-ban/{id}', 'App\Http\Controllers\TeacherController@banning');
 });
 
 //^ Student's Role

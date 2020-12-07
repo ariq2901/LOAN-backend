@@ -7,6 +7,7 @@ use App\Models\Assignment;
 use App\Models\Borrowing;
 use App\Models\Picture;
 use App\Models\User;
+use App\StatusCode;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -122,9 +123,9 @@ class StudentController extends Controller
 
     public function notifpinjam($penerima, $borrowingId)
     {
-        Mail::to($penerima, "Tim sukses")->send(new PeminjamanEmail($borrowingId));
+        Mail::to($penerima, "Loan")->send(new PeminjamanEmail($borrowingId));
 
-        return response()->json(["Email has been sent"], 200);
+        return response()->json(["Email has been sent"], StatusCode::OK);
     }
 
     public function setorTugas(Request $request, $borrowingId)

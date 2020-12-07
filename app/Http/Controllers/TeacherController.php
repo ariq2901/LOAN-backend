@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\PeminjamanEmail;
+use App\Mail\SuratPeringatan;
 use App\Models\Assignment;
 use App\Models\Borrowing;
 use App\Models\Crucial;
@@ -109,17 +110,18 @@ class TeacherController extends Controller
         $input['assignment_id'] = $id;
         $assignment_id = $input['assignment_id'];
         $crucial = Crucial::create($input);
-        $crucial_id = $crucial->id;
-        $penalty = $this->penalty($input['status'], $assignment_id);
         if($crucial) {
+            $penalty = $this->penalty($input['status'], $assignment_id);
+            return response()->json(["message" => $penalty], StatusCode::OK);
+            
             return response()->json(["success" => "Success added agreement"], StatusCode::OK);
         } else {
             return response()->json(["error" => "An error occured"], StatusCode::BAD_REQUEST);
         }
     }
-
+    
     public function penalty($status, $assignment_id)
-    {
+    {   
         //^ assignment
         $assignment = Assignment::where("id", $assignment_id)->first();
         
@@ -135,6 +137,11 @@ class TeacherController extends Controller
                             ->update([
                                 'penalty' => $user['penalty'] + 1
                             ]);
+            if(User::where("id", $user_id)->first()->penalty >= 3) {
+                Mail::to(User::where("id", $user_id)->first()->parent_email, "Loan Borrowing")->send(new SuratPeringatan($user_id));
+                return "surat peringatan sent";
+            }
+            return "masih aman";
         }
     }
 }
